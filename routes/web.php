@@ -23,3 +23,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/profile','User\ProfileController@index')->name('profile.index');
 Route::get('/update-profile','User\ProfileController@profileExist')->name('profile.update');
+Route::post('/update-profile-picture','User\ProfileController@updateAvatar')->name('profile.update.picture');
+Route::get('/remove-avatar','User\ProfileController@removeAvatar')->name('profile.avatar.remove');

@@ -35,8 +35,22 @@ class ProfileController extends Controller
         Profile::where('user_id', Auth::id())->update($userDetails);
     }
 
+
+    public function profileExist()
+    {
+        $result = Profile::where('user_id', Auth::id())->first();
+        if ($result != null) {
+            $this->update();
+            return redirect('profile')->with('msg', 'Profile Updated Successfully');
+        } else {
+
+            $this->store();
+            return redirect('profile')->with('msg', 'Profile Updated Successfully');
+        }
+    }
     public function updateAvatar()
     {
+
         $model = new Profile();
         $path = $model->getAvatarPath();
         $this->deletefile();
@@ -49,16 +63,10 @@ class ProfileController extends Controller
         $delFile = new DeleteFile();
         $delFile->removeFile('User', Auth::id(), 'avatar');
     }
-    public function profileExist()
-    {
-        $result = Profile::where('user_id', Auth::id())->first();
-        if ($result != null) {
-            $this->update();
-            return back()->with('msg', 'Profile Updated Successfully');
-        } else {
 
-            $this->store();
-            return back()->with('msg', 'Profile Updated Successfully');
-        }
+    public function removeAvatar()
+    {
+           User::whereId(Auth::id())->update(['avatar'=>""]);
+           return back()->with('msg', 'Avatar removed Successfully');
     }
 }

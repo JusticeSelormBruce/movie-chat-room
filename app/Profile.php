@@ -25,7 +25,7 @@ class Profile extends Model
     {
         $details = $this->validateAvatarDetails();
         $path = Storage::putFile('users/profile/' . '' . Auth::user()->name . '' . '/avatar', $details['avatar']);
-        return $$details['avatar']->storeAs("public", $path);
+        return $details['avatar']->storeAs("public", $path);
     }
 
     public function validateProfileDetails()
@@ -66,7 +66,7 @@ class Profile extends Model
 
         return request()->validate(
             [
-                'avatar' => "required|file|max:2000|'mimes:jpeg,png"
+                'avatar' => "required|file|max:2000|mimes:jpeg,png"
             ]
         );
     }

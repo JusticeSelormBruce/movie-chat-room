@@ -30,31 +30,27 @@
             @include('common.alert')
         <div class="row small no-gutters">
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
-                <form action="">
+
                     <div class="row">
                 <div class="mx-auto">
-                <div>
+
 
                         <div class="mx-xl-auto mx-lg-auto mx-md-auto mx-sm-auto">
-                            <img class="avatar rounded" id="blah"/>
+                            @if(Auth::user()->avatar == null)
+                            <img class="avatar" src="{{asset('icons/avatar.png')}}" alt="user default avatar">
+                            @else
+                            <img class="avatar" src="{{Storage::url(Auth::user()->avatar)}}" alt="useravatar">
+                            @endif
                         </div>
 
-                </div>
+
                 <div class="col pt-2">
-
-                        <div class="row">
-                            <div class="mx-xl-auto mx-lg-auto mx-md-auto mx-sm-0">
-                            <div class="upload-btn-wrapper">
-                                <button class="btn btn-sm btn-secondary w-100"><span class="mx-3">update avatar</span></button>
-                                <input type="file" name="avatar"   onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])">
-                            </div>
-                            </div>
-
-                    </div>
+                   @include('user.profile.actions')
                 </div>
+
                 </div>
             </div>
-                </form>
+
 
             </div>
             <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12">

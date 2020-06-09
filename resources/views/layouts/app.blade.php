@@ -78,6 +78,5 @@
     </div>
     <script src="{{asset('boostrap/js/jquery.js')}}"></script>
     <script src="{{asset('boostrap/js/bootstrap.js')}}"></script>
-
 </body>
 </html>
