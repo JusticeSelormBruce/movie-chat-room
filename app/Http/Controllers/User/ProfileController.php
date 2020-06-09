@@ -12,16 +12,15 @@ class ProfileController extends Controller
 {
     public function index()
     {
-        $user = Auth::user();
+        $user = Auth::user()->profile;
         return view('user.profile.index', compact('user'));
     }
 
     public function store()
     {
         $model = new Profile();
-        $userDetails = $model->validateProfileDetails();
+        $userDetails = $model->validateProfileDetails() + ['user_id' => Auth::id()];
         Profile::create($userDetails);
-        return back()->with('msg', 'Profile Updated Successfully');
     }
     public function show($id)
     {
@@ -32,9 +31,8 @@ class ProfileController extends Controller
     public function update()
     {
         $model = new Profile();
-        $userDetails = $model->validateProfileDetails();
+        $userDetails = $model->validateUpdateProfileDetails()  + ['user_id' => Auth::id()];
         Profile::where('user_id', Auth::id())->update($userDetails);
-        return back()->with('msg', 'Profile Updated Successfully');
     }
 
     public function updateAvatar()
@@ -50,5 +48,17 @@ class ProfileController extends Controller
     {
         $delFile = new DeleteFile();
         $delFile->removeFile('User', Auth::id(), 'avatar');
+    }
+    public function profileExist()
+    {
+        $result = Profile::where('user_id', Auth::id())->first();
+        if ($result != null) {
+            $this->update();
+            return back()->with('msg', 'Profile Updated Successfully');
+        } else {
+
+            $this->store();
+            return back()->with('msg', 'Profile Updated Successfully');
+        }
     }
 }

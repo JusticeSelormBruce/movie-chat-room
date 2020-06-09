@@ -36,12 +36,27 @@ class Profile extends Model
                 "first_name" => "required|string|max:30",
                 "middle_name" => "",
                 "last_name" => "required|string|max:30",
-                "bio" => "required|string|max:200",
-                "username" => "required|string|max:50|unique:users",
+                "bio" => "required|string|max:2000",
+                "username" => "required|string|max:50|unique:profiles",
                 "dob" => "required|string",
                 "gender_id" => "required|numeric",
-                "gendecountry_idr_id" => "required|numeric",
-                "user_id" => "required|numeric"
+                "country_id" => "required|numeric",
+            ]
+        );
+    }
+    public function validateUpdateProfileDetails()
+    {
+
+        return request()->validate(
+            [
+                "first_name" => "required|string|max:30",
+                "middle_name" => "",
+                "last_name" => "required|string|max:30",
+                "bio" => "required|string|max:200",
+                "username" => "required|string|max:50",
+                "dob" => "required|string",
+                "gender_id" => "required|numeric",
+                "country_id" => "required|numeric",
             ]
         );
     }
