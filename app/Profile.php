@@ -52,7 +52,7 @@ class Profile extends Model
                 "first_name" => "required|string|max:30",
                 "middle_name" => "",
                 "last_name" => "required|string|max:30",
-                "bio" => "required|string|max:200",
+                "bio" => "required|string|max:2000",
                 "username" => "required|string|max:50",
                 "dob" => "required|string",
                 "gender_id" => "required|numeric",
